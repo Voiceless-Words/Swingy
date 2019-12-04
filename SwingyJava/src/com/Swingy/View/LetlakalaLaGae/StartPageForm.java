@@ -33,13 +33,13 @@ public class StartPageForm extends JPanel {
 
         try {
 
-            _heroPicture = ImageIO.read(new File("/goinfre/pragolan/Desktop/Java_Module/SwingyJava/src/com/Swingy/View/hero1.jpg"));
+            _heroPicture = ImageIO.read(new File("/goinfre/pragolan/Desktop/Swingy/SwingyJava/src/com/Swingy/View/hero1.jpg"));
             _hero1Img = new JButton(new ImageIcon(_heroPicture));
             _hero1Img.setToolTipText("hero1");
-            _heroPicture = ImageIO.read(new File("/goinfre/pragolan/Desktop/Java_Module/SwingyJava/src/com/Swingy/View/hero2.jpg"));
+            _heroPicture = ImageIO.read(new File("/goinfre/pragolan/Desktop/Swingy/SwingyJava/src/com/Swingy/View/hero2.jpg"));
             _hero2Img = new JButton(new ImageIcon(_heroPicture));
             _hero2Img.setToolTipText("hero2");
-            _heroPicture = ImageIO.read(new File("/goinfre/pragolan/Desktop/Java_Module/SwingyJava/src/com/Swingy/View/hero3.jpg"));
+            _heroPicture = ImageIO.read(new File("/goinfre/pragolan/Desktop/Swingy/SwingyJava/src/com/Swingy/View/hero3.jpg"));
             _hero3Img = new JButton(new ImageIcon(_heroPicture));
             _hero3Img.setToolTipText("hero3");
 
