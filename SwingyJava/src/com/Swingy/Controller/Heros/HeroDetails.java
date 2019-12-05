@@ -17,5 +17,14 @@ public interface HeroDetails {
     public void set_HeroHP(int _HeroHP);
     public int [] get_HeroWeapons();
     public void set_HeroWeapos(int number);
+    public String get_HeroStatements();
+    public void set_HeroStatements(String statements);
+    public void set_HeroRow(int row);
+    public int get_HeroRow();
+    public void set_HeroCol(int row);
+    public int get_HeroCol();
+    public int get_HeroID();
+    public void set_HeroID(int id);
+
 
 }

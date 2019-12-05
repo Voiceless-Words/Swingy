@@ -1,96 +1,93 @@
 package com.Swingy.Model;
 
+import com.Swingy.Controller.Heros.HeroDetails;
+
 import java.sql.*;
 
 public class HeroStats {
-    private String _HeroName;
-    private String _HeroClass;
-    private int _HeroLevel;
-    private int _HeroExp;
-    private int _HeroAttack;
-    private int _HeroDefense;
-    private int _HeroHP;
+
     private Connection _connect;
     private Statement _queryStatement;
     private ResultSet _queryResult;
 
-    public HeroStats(String _HeroName, String _HeroClass, int _HeroLevel, int _HeroExp, int _HeroDefense, int _HeroHP)
-    {
-        this._HeroName = _HeroName;
-        this._HeroClass = _HeroClass;
-        this._HeroLevel = _HeroLevel;
-        this._HeroExp = _HeroExp;
-        this._HeroDefense = _HeroDefense;
-        this._HeroHP = _HeroHP;
+    public HeroStats() {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            _connect = DriverManager.getConnection("jdbc:mysql://localhost:3306","root","abcd1234");
-            _queryResult = _connect.getMetaData().getCatalogs();
-            while (_queryResult.next())
-            {
-                System.out.println(_queryResult.getString(1));
-            }
-            _queryStatement = _connect.createStatement();
+            DriverManager.registerDriver(new org.sqlite.JDBC());
+            _connect = DriverManager.getConnection("jdbc:sqlite:heroes.db");
+            if (_connect != null) {
 
-        }catch(Exception e) {
+                DatabaseMetaData dm = _connect.getMetaData();
+                String queryStatement = "CREATE TABLE IF NOT EXISTS savedHeroes (\n"
+                        + "    id integer PRIMARY KEY AUTO_INCREMENT,\n"
+                        + "    HeroName text NOT NULL,\n"
+                        + "    HeroClass text NOT NULL,\n"
+                        + "    HeroStatements text NOT NULL,\n"
+                        + "    HeroLevel integer NOT NULL,\n"
+                        + "    HeroExp integer NOT NULL,\n"
+                        + "    HeroAttack integer NOT NULL,\n"
+                        + "    HeroDefense integer NOT NULL,\n"
+                        + "    HeroHP integer NOT NULL,\n"
+                        + "    HeroRow integer NOT NULL,\n"
+                        + "    HeroCol integer NOT NULL"
+                        + ");";
+                _queryStatement = _connect.createStatement();
+                _queryStatement.execute(queryStatement);
+                _connect.close();
+            }
+
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
 
-    public String get_HeroName() {
-        return _HeroName;
+    public void addNewHero(HeroDetails heroDetails) {
+        try {
+            DriverManager.registerDriver(new org.sqlite.JDBC());
+            _connect = DriverManager.getConnection("jdbc:sqlite:heroes.db");
+            if (_connect != null) {
+
+                DatabaseMetaData dm = _connect.getMetaData();
+
+                String queryStatement = "INSERT INTO saveHeroes (HeroName, HeroClass, HeroStatements, HeroLevel,\n"
+                        + "HeroExp, HeroAttack, HeroDefense, HeroHP, HeroRow, HeroCol) \n"
+                        + "VALUES(" + heroDetails.get_HeroName() + "," + heroDetails.get_HeroClass() + "," + heroDetails.get_HeroStatements()
+                        + "," + heroDetails.get_HeroLevel() + "," + heroDetails.get_HeroExp() + "," + heroDetails.get_HeroAttack()
+                        + "," + heroDetails.get_HeroDefense() + "," + heroDetails.get_HeroHP() + "," + heroDetails.get_HeroRow()
+                        + "," + heroDetails.get_HeroCol() + ");";
+
+                _queryStatement = _connect.createStatement();
+                _queryStatement.execute(queryStatement);
+                _connect.close();
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
     }
 
-    public void set_HeroName(String _HeroName) {
-        this._HeroName = _HeroName;
-    }
+    public void updateHero(HeroDetails heroDetails) {
+        try {
+            DriverManager.registerDriver(new org.sqlite.JDBC());
+            _connect = DriverManager.getConnection("jdbc:sqlite:heroes.db");
+            if (_connect != null) {
+                DatabaseMetaData dm = _connect.getMetaData();
+                String queryStatement = " UPDATE savedHeroes SET HeroName = " + heroDetails.get_HeroName()
+                        + ", HeroClass = " + heroDetails.get_HeroClass() + ", HeroStatements = " + heroDetails.get_HeroStatements()
+                        + ", HeroLevel = " + heroDetails.get_HeroLevel() + ", HeroExp = " + heroDetails.get_HeroExp()
+                        + ", HeroAttack = " + heroDetails.get_HeroAttack() + ", HeroDefense = " + heroDetails.get_HeroDefense()
+                        + ", HeroHP = " + heroDetails.get_HeroHP() + ", HeroRow = " + heroDetails.get_HeroRow()
+                        + ", HeroCol = " + heroDetails.get_HeroCol() + " WHERE id = " + heroDetails.get_HeroID() +");";
 
-    public String get_HeroClass() {
-        return _HeroClass;
-    }
+                _queryStatement = _connect.createStatement();
+                _queryStatement.execute(queryStatement);
+                _connect.close();
+            }
 
-    public void set_HeroClass(String _HeroClass) {
-        this._HeroClass = _HeroClass;
-    }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
 
-    public int get_HeroLevel() {
-        return _HeroLevel;
-    }
-
-    public void set_HeroLevel(int _HeroLevel) {
-        this._HeroLevel = _HeroLevel;
-    }
-
-    public int get_HeroExp() {
-        return _HeroExp;
-    }
-
-    public void set_HeroExp(int _HeroExp) {
-        this._HeroExp = _HeroExp;
-    }
-
-    public int get_HeroAttack() {
-        return _HeroAttack;
-    }
-
-    public void set_HeroAttack(int _HeroAttack) {
-        this._HeroAttack = _HeroAttack;
-    }
-
-    public int get_HeroDefense() {
-        return _HeroDefense;
-    }
-
-    public void set_HeroDefense(int _HeroDefense) {
-        this._HeroDefense = _HeroDefense;
-    }
-
-    public int get_HeroHP() {
-        return _HeroHP;
-    }
-
-    public void set_HeroHP(int _HeroHP) {
-        this._HeroHP = _HeroHP;
     }
 
 }
