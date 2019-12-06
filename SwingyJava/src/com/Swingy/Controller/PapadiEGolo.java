@@ -100,11 +100,15 @@ public class PapadiEGolo implements ActionListener {
 
     public void DisplayStats(String envGame)
     {
+        _detailsOfHero.set_HeroRow(_xCoordinate);
+        _detailsOfHero.set_HeroCol(_yCoordinate);
+        _detailsOfHero.set_HeroStatements(this._gamePlayTextArea.getTextArea());
         if (envGame == "Console")
         {
             _heroInformation.displayInformation("Name: "+_detailsOfHero.get_HeroName()+ "\nType: "+_detailsOfHero.get_HeroClass()+"\nLevel: "+_detailsOfHero.get_HeroLevel()+
                     "\nAttack: "+_detailsOfHero.get_HeroAttack()+"\nExperience: "+_detailsOfHero.get_HeroExp()+"\nDefense: "+_detailsOfHero.get_HeroDefense()+
                     "\nHealth Points: "+_detailsOfHero.get_HeroHP(), "Console");
+
         }else {
             StatsDisplay.get_statsField().setText("Name: "+_detailsOfHero.get_HeroName()+" Type: " +_detailsOfHero.get_HeroClass()+
                     " Lv: "+_detailsOfHero.get_HeroLevel()+" Atck: "+_detailsOfHero.get_HeroAttack()+" Exp: "+_detailsOfHero.get_HeroExp()+
@@ -160,7 +164,6 @@ public class PapadiEGolo implements ActionListener {
             this._detailsOfHero.set_HeroLevel(this._detailsOfHero.get_HeroLevel() + 1);
             this._heroInformation.displayInformation("Congratulations you just leveled up!!!", envGame);
             JOptionPane.showMessageDialog(null, "You leveling up!!! Yeepy!!!");
-
             this.DisplayStats(envGame);
         }
     }

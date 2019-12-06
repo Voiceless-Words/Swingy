@@ -7,8 +7,9 @@ import java.sql.*;
 public class HeroStats {
 
     private Connection _connect;
-    private Statement _queryStatement;
+    private PreparedStatement _queryStatement;
     private ResultSet _queryResult;
+    private int _id;
 
     public HeroStats() {
         try {
@@ -18,7 +19,7 @@ public class HeroStats {
 
                 DatabaseMetaData dm = _connect.getMetaData();
                 String queryStatement = "CREATE TABLE IF NOT EXISTS savedHeroes (\n"
-                        + "    id integer PRIMARY KEY AUTO_INCREMENT,\n"
+                        + "    id integer AUTO_INCREMENT PRIMARY KEY ,\n"
                         + "    HeroName text NOT NULL,\n"
                         + "    HeroClass text NOT NULL,\n"
                         + "    HeroStatements text NOT NULL,\n"
@@ -30,8 +31,8 @@ public class HeroStats {
                         + "    HeroRow integer NOT NULL,\n"
                         + "    HeroCol integer NOT NULL"
                         + ");";
-                _queryStatement = _connect.createStatement();
-                _queryStatement.execute(queryStatement);
+                _queryStatement = _connect.prepareStatement(queryStatement);
+                _queryStatement.execute();
                 _connect.close();
             }
 
@@ -55,8 +56,17 @@ public class HeroStats {
                         + "," + heroDetails.get_HeroDefense() + "," + heroDetails.get_HeroHP() + "," + heroDetails.get_HeroRow()
                         + "," + heroDetails.get_HeroCol() + ");";
 
-                _queryStatement = _connect.createStatement();
-                _queryStatement.execute(queryStatement);
+                _queryStatement = _connect.prepareStatement(queryStatement, Statement.RETURN_GENERATED_KEYS);
+                _queryStatement.execute();
+
+                _queryResult = _queryStatement.getGeneratedKeys();
+
+                if(_queryResult.next())
+                {
+                    _id = _queryResult.getInt(1);
+                    heroDetails.set_HeroID(_id);
+                }
+
                 _connect.close();
             }
 
@@ -79,8 +89,8 @@ public class HeroStats {
                         + ", HeroHP = " + heroDetails.get_HeroHP() + ", HeroRow = " + heroDetails.get_HeroRow()
                         + ", HeroCol = " + heroDetails.get_HeroCol() + " WHERE id = " + heroDetails.get_HeroID() +");";
 
-                _queryStatement = _connect.createStatement();
-                _queryStatement.execute(queryStatement);
+                _queryStatement = _connect.prepareStatement(queryStatement);
+                _queryStatement.execute();
                 _connect.close();
             }
 

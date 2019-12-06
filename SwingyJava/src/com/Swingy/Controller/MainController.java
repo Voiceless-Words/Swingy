@@ -22,7 +22,7 @@ public class MainController {
             if(platformPlay.toLowerCase().equals("console")) {
 
                 new ConsoleLoop();
-                new HeroStats("piet", "yes", 1,1,1,1);
+                new HeroStats();
             } else if (platformPlay.toLowerCase().equals("gui")) {
                 display = new LetlakalaLaGae();
                 MainFrame.getInstance().addPanel(display.getDisplay());

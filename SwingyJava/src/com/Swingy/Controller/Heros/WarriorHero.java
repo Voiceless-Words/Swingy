@@ -11,6 +11,10 @@ public class WarriorHero implements HeroDetails{
     private int _heroAttack;
     private int _heroDefense;
     private int _heroHP;
+    private String _heroStatements;
+    private int _heroRow;
+    private int _heroCol;
+    private int _heroID;
     private int [] _heroWeapons;
 
     public WarriorHero(String heroName, String heroClass, int heroLevel, int heroAttack, int heroExp, int heroDefense, int heroHP)
@@ -99,6 +103,48 @@ public class WarriorHero implements HeroDetails{
         } else {
             this._heroWeapons[arrSize - 1] = number;
         }
+    }
+
+    @Override
+    public String get_HeroStatements() {
+        return _heroStatements;
+    }
+
+    @Override
+    public void set_HeroStatements(String statements) {
+        this._heroStatements = statements;
+
+    }
+
+    @Override
+    public void set_HeroRow(int row) {
+        this._heroRow = row;
+
+    }
+
+    @Override
+    public int get_HeroRow() {
+        return _heroRow;
+    }
+
+    @Override
+    public void set_HeroCol(int col) {
+        this._heroCol = col;
+    }
+
+    @Override
+    public int get_HeroCol() {
+        return _heroCol;
+    }
+
+    @Override
+    public int get_HeroID() {
+        return _heroID;
+    }
+
+    @Override
+    public void set_HeroID(int id) {
+        this._heroID = id;
     }
 
 }
