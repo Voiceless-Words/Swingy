@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import com.Swingy.Controller.Heros.HeroStart;
 import com.Swingy.View.Display;
+import com.Swingy.View.FeleletsaPapadi.FeleletsaPapadi;
 import com.Swingy.View.HeroInformation;
 import com.Swingy.View.MainFrame;
 import com.Swingy.View.LetlakalaLaGae.*;
@@ -50,20 +51,24 @@ public class LaGaeControls implements ActionListener {
                 //_display.gameControlButtonsListener((new PapadiEGolo()));
                 if (this._chosenOne == "Warrior")
                 {
-                    _display.gameControlButtonsListener(new PapadiEGolo(HeroStart.newHero(_heroName, _chosenOne, 0, 75, 450, 95, 100), "Gui"));
+                    _display.gameControlButtonsListener(new PapadiEGolo(HeroStart.newHero(_heroName, _chosenOne, 0, 75, 450, 95, 100, 0, 0), "Gui", 0));
 
                 } else if (this._chosenOne == "Healer")
                 {
-                    _display.gameControlButtonsListener(new PapadiEGolo(HeroStart.newHero(_heroName, _chosenOne, 0, 65, 450, 50, 150), "Gui"));
+                    _display.gameControlButtonsListener(new PapadiEGolo(HeroStart.newHero(_heroName, _chosenOne, 0, 65, 450, 50, 150, 0, 0), "Gui", 0));
                 } else
                 {
-                    _display.gameControlButtonsListener(new PapadiEGolo(HeroStart.newHero(_heroName, _chosenOne, 0, 90, 450, 85, 100), "Gui"));
+                    _display.gameControlButtonsListener(new PapadiEGolo(HeroStart.newHero(_heroName, _chosenOne, 0, 90, 450, 85, 100, 0, 0), "Gui", 0));
                 }
             }
         }
         else if (GameSelectButtons.getContinueButton().getToolTipText() == clicked.getToolTipText())
         {
-            System.out.printf("Continue Game");
+            MainFrame.getInstance().hidePanel(MainFrame.getInstance().getPanel());
+            _display = new FeleletsaPapadi();
+            MainFrame.getInstance().addPanel(_display.getDisplay());
+            MainFrame.getInstance().getFrame().setTitle(_display.getTitle());
+            _display.homeButtonsListener(new GetDataFromDatabase());
         }
         else if(_heroButtons.getHero1Img().getToolTipText() == clicked.getToolTipText()) {
             if (_heroInformation != null)

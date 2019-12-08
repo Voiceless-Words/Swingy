@@ -1,8 +1,13 @@
 package com.Swingy.Model;
 
 import com.Swingy.Controller.Heros.HeroDetails;
+import com.Swingy.View.FeleletsaPapadi.FeleletsaPapadi;
+import net.proteanit.sql.DbUtils;
 
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.sql.*;
+import java.util.Vector;
 
 public class HeroStats {
 
@@ -13,23 +18,27 @@ public class HeroStats {
 
     public HeroStats() {
         try {
+            if (_connect != null)
+            {
+                _connect.close();
+            }
             DriverManager.registerDriver(new org.sqlite.JDBC());
             _connect = DriverManager.getConnection("jdbc:sqlite:heroes.db");
             if (_connect != null) {
 
                 DatabaseMetaData dm = _connect.getMetaData();
                 String queryStatement = "CREATE TABLE IF NOT EXISTS savedHeroes (\n"
-                        + "    id integer AUTO_INCREMENT PRIMARY KEY ,\n"
+                        + "    id INTEGER  PRIMARY KEY,\n"
                         + "    HeroName text NOT NULL,\n"
                         + "    HeroClass text NOT NULL,\n"
                         + "    HeroStatements text NOT NULL,\n"
-                        + "    HeroLevel integer NOT NULL,\n"
-                        + "    HeroExp integer NOT NULL,\n"
-                        + "    HeroAttack integer NOT NULL,\n"
-                        + "    HeroDefense integer NOT NULL,\n"
-                        + "    HeroHP integer NOT NULL,\n"
-                        + "    HeroRow integer NOT NULL,\n"
-                        + "    HeroCol integer NOT NULL"
+                        + "    HeroLevel INTEGER NOT NULL,\n"
+                        + "    HeroExp INTEGER NOT NULL,\n"
+                        + "    HeroAttack INTEGER NOT NULL,\n"
+                        + "    HeroDefense INTEGER NOT NULL,\n"
+                        + "    HeroHP INTEGER NOT NULL,\n"
+                        + "    HeroRow INTEGER NOT NULL,\n"
+                        + "    HeroCol INTEGER NOT NULL"
                         + ");";
                 _queryStatement = _connect.prepareStatement(queryStatement);
                 _queryStatement.execute();
@@ -43,21 +52,23 @@ public class HeroStats {
 
     public void addNewHero(HeroDetails heroDetails) {
         try {
+            if (_connect != null)
+            {
+                _connect.close();
+            }
             DriverManager.registerDriver(new org.sqlite.JDBC());
             _connect = DriverManager.getConnection("jdbc:sqlite:heroes.db");
             if (_connect != null) {
 
                 DatabaseMetaData dm = _connect.getMetaData();
 
-                String queryStatement = "INSERT INTO saveHeroes (HeroName, HeroClass, HeroStatements, HeroLevel,\n"
+                String queryStatement = "INSERT INTO savedHeroes (HeroName, HeroClass, HeroStatements, HeroLevel, "
                         + "HeroExp, HeroAttack, HeroDefense, HeroHP, HeroRow, HeroCol) \n"
-                        + "VALUES(" + heroDetails.get_HeroName() + "," + heroDetails.get_HeroClass() + "," + heroDetails.get_HeroStatements()
-                        + "," + heroDetails.get_HeroLevel() + "," + heroDetails.get_HeroExp() + "," + heroDetails.get_HeroAttack()
-                        + "," + heroDetails.get_HeroDefense() + "," + heroDetails.get_HeroHP() + "," + heroDetails.get_HeroRow()
-                        + "," + heroDetails.get_HeroCol() + ");";
+                        + "VALUES(?,?,?,?,?,?,?,?,?,?);";
 
                 _queryStatement = _connect.prepareStatement(queryStatement, Statement.RETURN_GENERATED_KEYS);
-                _queryStatement.execute();
+               this.updatDataStatement(_queryStatement, heroDetails);
+                _queryStatement.executeUpdate();
 
                 _queryResult = _queryStatement.getGeneratedKeys();
 
@@ -78,18 +89,24 @@ public class HeroStats {
 
     public void updateHero(HeroDetails heroDetails) {
         try {
+            if (_connect != null)
+            {
+                _connect.close();
+            }
             DriverManager.registerDriver(new org.sqlite.JDBC());
             _connect = DriverManager.getConnection("jdbc:sqlite:heroes.db");
             if (_connect != null) {
                 DatabaseMetaData dm = _connect.getMetaData();
-                String queryStatement = " UPDATE savedHeroes SET HeroName = " + heroDetails.get_HeroName()
-                        + ", HeroClass = " + heroDetails.get_HeroClass() + ", HeroStatements = " + heroDetails.get_HeroStatements()
-                        + ", HeroLevel = " + heroDetails.get_HeroLevel() + ", HeroExp = " + heroDetails.get_HeroExp()
-                        + ", HeroAttack = " + heroDetails.get_HeroAttack() + ", HeroDefense = " + heroDetails.get_HeroDefense()
-                        + ", HeroHP = " + heroDetails.get_HeroHP() + ", HeroRow = " + heroDetails.get_HeroRow()
-                        + ", HeroCol = " + heroDetails.get_HeroCol() + " WHERE id = " + heroDetails.get_HeroID() +");";
+                String queryStatement = " UPDATE savedHeroes SET HeroName = ? "
+                        + ", HeroClass = ? " + ", HeroStatements = ?"
+                        + ", HeroLevel = ? " + ", HeroExp = ? "
+                        + ", HeroAttack = ? " + ", HeroDefense = ? "
+                        + ", HeroHP = ? " + ", HeroRow = ? "
+                        + ", HeroCol = ? " + " WHERE id = ? ;";
 
                 _queryStatement = _connect.prepareStatement(queryStatement);
+                this.updatDataStatement(_queryStatement, heroDetails);
+                _queryStatement.setInt(11, heroDetails.get_HeroID());
                 _queryStatement.execute();
                 _connect.close();
             }
@@ -98,6 +115,87 @@ public class HeroStats {
             System.out.println(e);
         }
 
+    }
+
+    public void updatDataStatement(PreparedStatement _queryStatement, HeroDetails heroDetails)
+    {
+        try {
+            _queryStatement.setString(1, heroDetails.get_HeroName());
+            _queryStatement.setString(2, heroDetails.get_HeroClass());
+            _queryStatement.setString(3, heroDetails.get_HeroStatements());
+            _queryStatement.setInt(4, heroDetails.get_HeroLevel());
+            _queryStatement.setInt(5, heroDetails.get_HeroExp());
+            _queryStatement.setInt(6, heroDetails.get_HeroAttack());
+            _queryStatement.setInt(7, heroDetails.get_HeroDefense());
+            _queryStatement.setInt(8, heroDetails.get_HeroHP());
+            _queryStatement.setInt(9, heroDetails.get_HeroRow());
+            _queryStatement.setInt(10, heroDetails.get_HeroCol());
+        } catch (Exception e)
+        {
+            System.out.println(e);
+        }
+
+    }
+
+    public JTable fetchHeroes()
+    {
+        String[] columnNames = {"ID", "Name", "Class","Messages","Level","Exp","Attack","Defense","HP","Row","Col"};
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+        JTable one = new JTable();
+        try{
+            if (_connect != null)
+            {
+                _connect.close();
+            }
+            DriverManager.registerDriver(new org.sqlite.JDBC());
+            _connect = DriverManager.getConnection("jdbc:sqlite:heroes.db");
+            if (_connect != null) {
+                DatabaseMetaData dm = _connect.getMetaData();
+                String queryStatement = " SELECT * FROM savedHeroes";
+
+                _queryStatement = _connect.prepareStatement(queryStatement);;
+                _queryResult = _queryStatement.executeQuery();
+                while (_queryResult.next())
+                {
+                    Vector row = new Vector();
+
+                    for (int i = 1; i <= 11; i++)
+                    {
+                        row.addElement( _queryResult.getObject(i) );
+                    }
+
+                    model.addRow( row );
+                }
+                one = new JTable(model);
+                _connect.close();
+        }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return one;
+    }
+
+    public ResultSet getSingleHero(int ID)
+    {
+        try {
+            DriverManager.registerDriver(new org.sqlite.JDBC());
+            _connect = DriverManager.getConnection("jdbc:sqlite:heroes.db");
+            if (_connect != null) {
+                DatabaseMetaData dm = _connect.getMetaData();
+                String queryStatement = " SELECT * FROM savedHeroes WHERE id = ? ;";
+
+                _queryStatement = _connect.prepareStatement(queryStatement);
+                _queryStatement.setInt(1, ID);
+                _queryResult = _queryStatement.executeQuery();
+                //_connect.close();
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return _queryResult;
     }
 
 }

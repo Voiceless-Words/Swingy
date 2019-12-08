@@ -19,7 +19,7 @@ public class LetlakalaLaGoRaloka extends JPanel implements Display {
     private String _title = "LetlakalaLaGoRaloka";
     private GamePlayButtons _gameButtons;
     private StatsDisplay _statsDisplay;
-    private GamePageTextArea _gamePageTextArea;
+    private static GamePageTextArea _gamePageTextArea;
     private JButton _up;
     private JButton _down;
     private JButton _left;
@@ -83,6 +83,11 @@ public class LetlakalaLaGoRaloka extends JPanel implements Display {
 
     public void homeButtonsListener(ActionListener event) {
         //homeButtons implemented in LetlakalaLaGae
+    }
+
+    public static String getAreaText()
+    {
+        return _gamePageTextArea.getTextArea();
     }
 
     @Override

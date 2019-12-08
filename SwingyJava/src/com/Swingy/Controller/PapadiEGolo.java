@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 import com.Swingy.Controller.Heros.HeroDetails;
+import com.Swingy.Model.HeroStats;
 import com.Swingy.View.HeroInformation;
 import com.Swingy.View.MainFrame;
 import com.Swingy.View.GameOver.GameOver;
@@ -27,20 +28,27 @@ public class PapadiEGolo implements ActionListener {
     private HeroDetails _detailsOfHero;
     private HashMap<String,Integer> _enemies;
     private List<Map<String, Integer>> _enemyArray;
-    private GamePageTextArea _gamePlayTextArea = new GamePageTextArea();
+    private HeroStats saveHero;
+    private GamePageTextArea _gamePlayTextArea;
     private int	_mapSize;
     private int _xCoordinate;
     private int _yCoordinate;
     private int _enemyHere;
 
-    public PapadiEGolo(HeroDetails newHero, String envGame)
+    public PapadiEGolo(HeroDetails newHero, String envGame, int contNew)
     {
         this._enemyHere = 0;
         this._detailsOfHero = newHero;
+        this._gamePlayTextArea = new GamePageTextArea();
         this._gamePlayButtons = new GamePlayButtons();
-        this._gamePlayButtons.get_fightButton().setEnabled(false);
-        this._gamePlayButtons.get_runButton().setEnabled(false);
+        this.saveHero = new HeroStats();
         this.DisplayStats(envGame);
+        if(contNew > 0)
+        {
+            this.saveHero.updateHero(newHero);
+        } else {
+            this.saveHero.addNewHero(newHero);
+        }
         this.CreateMap(this._detailsOfHero.get_HeroLevel());
     }
 
@@ -100,20 +108,21 @@ public class PapadiEGolo implements ActionListener {
 
     public void DisplayStats(String envGame)
     {
-        _detailsOfHero.set_HeroRow(_xCoordinate);
-        _detailsOfHero.set_HeroCol(_yCoordinate);
-        _detailsOfHero.set_HeroStatements(this._gamePlayTextArea.getTextArea());
+        _detailsOfHero.set_HeroRow(_yCoordinate);
+        _detailsOfHero.set_HeroCol(_xCoordinate);
+        _detailsOfHero.set_HeroStatements(LetlakalaLaGoRaloka.getAreaText());
         if (envGame == "Console")
         {
             _heroInformation.displayInformation("Name: "+_detailsOfHero.get_HeroName()+ "\nType: "+_detailsOfHero.get_HeroClass()+"\nLevel: "+_detailsOfHero.get_HeroLevel()+
                     "\nAttack: "+_detailsOfHero.get_HeroAttack()+"\nExperience: "+_detailsOfHero.get_HeroExp()+"\nDefense: "+_detailsOfHero.get_HeroDefense()+
-                    "\nHealth Points: "+_detailsOfHero.get_HeroHP(), "Console");
+                    "\nHealth Points: "+_detailsOfHero.get_HeroHP() + "\n HeroID" + _detailsOfHero.get_HeroID(), "Console");
 
         }else {
             StatsDisplay.get_statsField().setText("Name: "+_detailsOfHero.get_HeroName()+" Type: " +_detailsOfHero.get_HeroClass()+
                     " Lv: "+_detailsOfHero.get_HeroLevel()+" Atck: "+_detailsOfHero.get_HeroAttack()+" Exp: "+_detailsOfHero.get_HeroExp()+
-                    " Dfns: "+_detailsOfHero.get_HeroDefense()+" HP: "+_detailsOfHero.get_HeroHP());
+                    " Dfns: "+_detailsOfHero.get_HeroDefense()+" HP: "+_detailsOfHero.get_HeroHP() + " HeroID: " + _detailsOfHero.get_HeroID());
         }
+        this.saveHero.updateHero(_detailsOfHero);
 
     }
 
