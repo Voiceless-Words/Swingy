@@ -26,7 +26,6 @@ public class LegendHero implements HeroDetails {
         this._heroExp = heroExp;
         this._heroDefense = heroDefense;
         this._heroHP = heroHP;
-        this._heroID = 0;
         this._heroCol = col;
         this._heroRow = row;
         this._heroAttack = heroAttack;

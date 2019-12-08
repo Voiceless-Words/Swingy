@@ -27,7 +27,6 @@ public class HealerHero implements HeroDetails {
         this._heroHP = heroHP;
         this._heroCol = col;
         this._heroRow = row;
-        this._heroID = 0;
         this._heroWeapons = new int[5];
 
         Random random = new Random();

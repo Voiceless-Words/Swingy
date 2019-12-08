@@ -26,7 +26,7 @@ public class HeroStats {
                         + "    id INTEGER  PRIMARY KEY,\n"
                         + "    HeroName text NOT NULL,\n"
                         + "    HeroClass text NOT NULL,\n"
-                        + "    HeroStatements text NOT NULL,\n"
+                        + "    HeroStatements text,\n"
                         + "    HeroLevel INTEGER NOT NULL,\n"
                         + "    HeroExp INTEGER NOT NULL,\n"
                         + "    HeroAttack INTEGER NOT NULL,\n"
@@ -93,8 +93,7 @@ public class HeroStats {
             }
 
         } catch (Exception e) {
-            System.out.println("Here!!");
-            System.out.println(e);
+            System.out.println("Database connected");
         }
 
     }

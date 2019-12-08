@@ -121,7 +121,7 @@ public class PapadiEGolo implements ActionListener {
         }else {
             StatsDisplay.get_statsField().setText("Name: "+_detailsOfHero.get_HeroName()+" Type: " +_detailsOfHero.get_HeroClass()+
                     " Lv: "+_detailsOfHero.get_HeroLevel()+" Atck: "+_detailsOfHero.get_HeroAttack()+" Exp: "+_detailsOfHero.get_HeroExp()+
-                    " Dfns: "+_detailsOfHero.get_HeroDefense()+" HP: "+_detailsOfHero.get_HeroHP() + " HeroID: " + _detailsOfHero.get_HeroID());
+                    " Dfns: "+_detailsOfHero.get_HeroDefense()+" HP: "+_detailsOfHero.get_HeroHP());
         }
         this.saveHero.updateHero(_detailsOfHero);
 
