@@ -42,13 +42,14 @@ public class PapadiEGolo implements ActionListener {
         this._gamePlayTextArea = new GamePageTextArea();
         this._gamePlayButtons = new GamePlayButtons();
         this.saveHero = new HeroStats();
-        this.DisplayStats(envGame);
         if(contNew > 0)
         {
-            this.saveHero.updateHero(newHero);
+            _detailsOfHero.set_HeroID(contNew);
+            //this.saveHero.updateHero(newHero);
         } else {
             this.saveHero.addNewHero(newHero);
         }
+        this.DisplayStats(envGame);
         this.CreateMap(this._detailsOfHero.get_HeroLevel());
     }
 

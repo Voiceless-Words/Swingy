@@ -1,5 +1,6 @@
 package com.Swingy.Controller;
 
+import com.Swingy.Controller.Heros.HeroDetails;
 import com.Swingy.Controller.Heros.HeroStart;
 import com.Swingy.Model.HeroStats;
 import com.Swingy.View.Display;
@@ -47,7 +48,8 @@ public class GetDataFromDatabase implements ActionListener {
                         MainFrame.getInstance().getFrame().setTitle(_display.getTitle());
                         _display.gameControlButtonsListener(new PapadiEGolo(HeroStart.newHero(heroDetails.getString(2), heroDetails.getString(3),
                                     heroDetails.getInt(4), heroDetails.getInt(5), heroDetails.getInt(6), heroDetails.getInt(7),
-                                    heroDetails.getInt(8), heroDetails.getInt(9), heroDetails.getInt(10)), "Gui", 1));
+                                    heroDetails.getInt(8), heroDetails.getInt(9), heroDetails.getInt(10)), "Gui", selection));
+                        _heroModel.closeConnection();
                     } else {
                         JOptionPane.showMessageDialog(null, "Are you blind my nigga!!");
                     }

@@ -18,12 +18,7 @@ public class HeroStats {
 
     public HeroStats() {
         try {
-            if (_connect != null)
-            {
-                _connect.close();
-            }
-            DriverManager.registerDriver(new org.sqlite.JDBC());
-            _connect = DriverManager.getConnection("jdbc:sqlite:heroes.db");
+            _connect = this.get_connect();
             if (_connect != null) {
 
                 DatabaseMetaData dm = _connect.getMetaData();
@@ -42,7 +37,6 @@ public class HeroStats {
                         + ");";
                 _queryStatement = _connect.prepareStatement(queryStatement);
                 _queryStatement.execute();
-                _connect.close();
             }
 
         } catch (Exception e) {
@@ -52,12 +46,7 @@ public class HeroStats {
 
     public void addNewHero(HeroDetails heroDetails) {
         try {
-            if (_connect != null)
-            {
-                _connect.close();
-            }
-            DriverManager.registerDriver(new org.sqlite.JDBC());
-            _connect = DriverManager.getConnection("jdbc:sqlite:heroes.db");
+            _connect = this.get_connect();
             if (_connect != null) {
 
                 DatabaseMetaData dm = _connect.getMetaData();
@@ -78,7 +67,6 @@ public class HeroStats {
                     heroDetails.set_HeroID(_id);
                 }
 
-                _connect.close();
             }
 
         } catch (Exception e) {
@@ -89,14 +77,8 @@ public class HeroStats {
 
     public void updateHero(HeroDetails heroDetails) {
         try {
-            if (_connect != null)
-            {
-                _connect.close();
-            }
-            DriverManager.registerDriver(new org.sqlite.JDBC());
-            _connect = DriverManager.getConnection("jdbc:sqlite:heroes.db");
+            _connect = this.get_connect();
             if (_connect != null) {
-                DatabaseMetaData dm = _connect.getMetaData();
                 String queryStatement = " UPDATE savedHeroes SET HeroName = ? "
                         + ", HeroClass = ? " + ", HeroStatements = ?"
                         + ", HeroLevel = ? " + ", HeroExp = ? "
@@ -108,10 +90,10 @@ public class HeroStats {
                 this.updatDataStatement(_queryStatement, heroDetails);
                 _queryStatement.setInt(11, heroDetails.get_HeroID());
                 _queryStatement.execute();
-                _connect.close();
             }
 
         } catch (Exception e) {
+            System.out.println("Here!!");
             System.out.println(e);
         }
 
@@ -144,12 +126,7 @@ public class HeroStats {
 
         JTable one = new JTable();
         try{
-            if (_connect != null)
-            {
-                _connect.close();
-            }
-            DriverManager.registerDriver(new org.sqlite.JDBC());
-            _connect = DriverManager.getConnection("jdbc:sqlite:heroes.db");
+            _connect = this.get_connect();
             if (_connect != null) {
                 DatabaseMetaData dm = _connect.getMetaData();
                 String queryStatement = " SELECT * FROM savedHeroes";
@@ -168,7 +145,6 @@ public class HeroStats {
                     model.addRow( row );
                 }
                 one = new JTable(model);
-                _connect.close();
         }
 
         } catch (Exception e) {
@@ -180,10 +156,8 @@ public class HeroStats {
     public ResultSet getSingleHero(int ID)
     {
         try {
-            DriverManager.registerDriver(new org.sqlite.JDBC());
-            _connect = DriverManager.getConnection("jdbc:sqlite:heroes.db");
+            _connect = this.get_connect();
             if (_connect != null) {
-                DatabaseMetaData dm = _connect.getMetaData();
                 String queryStatement = " SELECT * FROM savedHeroes WHERE id = ? ;";
 
                 _queryStatement = _connect.prepareStatement(queryStatement);
@@ -198,4 +172,21 @@ public class HeroStats {
         return _queryResult;
     }
 
+    public Connection get_connect() throws SQLException
+    {
+        if (_connect == null) {
+            DriverManager.registerDriver(new org.sqlite.JDBC());
+            _connect = DriverManager.getConnection("jdbc:sqlite:heroes.db");
+        }
+        return _connect;
+    }
+
+    public void closeConnection()
+    {
+        try {
+            this._connect.close();
+        }catch (Exception clos){
+            System.out.println("Already closed");
+        }
+    }
 }
