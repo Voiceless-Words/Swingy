@@ -39,10 +39,12 @@ public class PapadiEGolo implements ActionListener {
     {
         this._enemyHere = 0;
         this._detailsOfHero = newHero;
-        this._gamePlayTextArea = new GamePageTextArea();
-        this._gamePlayButtons = new GamePlayButtons();
+        if (envGame.toLowerCase().equals("gui")) {
+            this._gamePlayTextArea = new GamePageTextArea();
+            this._gamePlayButtons = new GamePlayButtons();
+        }
         this.saveHero = new HeroStats();
-        _heroInformation = LetlakalaLaGoRaloka.getLetlakala().getHeroInfo();
+        _heroInformation = LetlakalaLaGoRaloka.getHeroInfo();
         if(contNew > 0)
         {
             if(envGame.equals("Console"))
@@ -225,9 +227,8 @@ public class PapadiEGolo implements ActionListener {
 
     public void LevelingUp(String envGame)
     {
-        this.CheckEnemyEncounter();
+        this.CheckEnemyEncounter(envGame);
         double xpPoints = (this._detailsOfHero.get_HeroLevel() + 1)*1000 + Math.sqrt(((this._detailsOfHero.get_HeroLevel() + 1) - 1)*450);
-
         if (xpPoints <= this._detailsOfHero.get_HeroExp())
         {
             this.CreateMap(this._detailsOfHero.get_HeroLevel() + 1);
@@ -287,7 +288,7 @@ public class PapadiEGolo implements ActionListener {
         }
     }
 
-    public void CheckEnemyEncounter()
+    public void CheckEnemyEncounter(String envGame)
     {
         int i = 0;
         for(Map<String, Integer> map : this._enemyArray)
@@ -296,7 +297,11 @@ public class PapadiEGolo implements ActionListener {
                     && map.get("Enemy" + Integer.toString(i + 1)+"xCoordinate") == this._xCoordinate)
             {
                 this._enemyHere = i + 1;
-                JOptionPane.showMessageDialog(null, "Enemy is here!!!");
+                if (envGame.toLowerCase().equals("gui")) {
+                    JOptionPane.showMessageDialog(null, "Enemy is here!!!");
+                } else {
+                    System.out.println("The Enemy Is Here!!!!!!!!!!");
+                }
             }
             i++;
         }

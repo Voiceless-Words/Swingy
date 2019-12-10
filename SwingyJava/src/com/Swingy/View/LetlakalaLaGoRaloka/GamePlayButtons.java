@@ -37,16 +37,16 @@ public class GamePlayButtons extends JPanel {
         setPreferredSize(dim);
 
         try {
-            _heroPicture = ImageIO.read(new File("/goinfre/pragolan/Desktop/Swingy/SwingyJava/src/com/Swingy/View/up.jpg"));
+            _heroPicture = ImageIO.read(new File("/goinfre/pragolan/Desktop/Swingy/Swingy/SwingyJava/src/com/Swingy/View/up.jpg"));
             _upImg = new JButton(new ImageIcon(_heroPicture));
             _upImg.setToolTipText("up");
-            _heroPicture = ImageIO.read(new File("/goinfre/pragolan/Desktop/Swingy/SwingyJava/src/com/Swingy/View/down.jpg"));
+            _heroPicture = ImageIO.read(new File("/goinfre/pragolan/Desktop/Swingy/Swingy/SwingyJava/src/com/Swingy/View/down.jpg"));
             _downImg = new JButton(new ImageIcon(_heroPicture));
             _downImg.setToolTipText("down");
-            _heroPicture = ImageIO.read(new File("/goinfre/pragolan/Desktop/Swingy/SwingyJava/src/com/Swingy/View/left.jpg"));
+            _heroPicture = ImageIO.read(new File("/goinfre/pragolan/Desktop/Swingy/Swingy/SwingyJava/src/com/Swingy/View/left.jpg"));
             _leftImg = new JButton(new ImageIcon(_heroPicture));
             _leftImg.setToolTipText("left");
-            _heroPicture = ImageIO.read(new File("/goinfre/pragolan/Desktop/Swingy/SwingyJava/src/com/Swingy/View/right.jpg"));
+            _heroPicture = ImageIO.read(new File("/goinfre/pragolan/Desktop/Swingy/Swingy/SwingyJava/src/com/Swingy/View/right.jpg"));
             _rightImg = new JButton(new ImageIcon(_heroPicture));
             _rightImg.setToolTipText("right");
 

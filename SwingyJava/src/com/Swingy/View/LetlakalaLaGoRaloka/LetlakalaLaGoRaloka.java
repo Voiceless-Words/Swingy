@@ -77,7 +77,7 @@ public class LetlakalaLaGoRaloka extends JPanel implements Display {
         return _letlakala;
     }
 
-    public HeroInformation getHeroInfo()
+    public static HeroInformation getHeroInfo()
     {
         return LetlakalaLaGoRaloka._heroInformation;
     }
