@@ -9,12 +9,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
@@ -26,7 +24,6 @@ public class ConsoleLoop {
     private InputStreamReader _readerI;
     private BufferedReader _bReader;
     private String _selectionMade;
-    private String _heroName;
 
     public ConsoleLoop()
     {
@@ -66,25 +63,17 @@ public class ConsoleLoop {
 
                 if (this._selectionMade.equals("1"))
                 {
-                    new ConsoleActionListener(name, "Warrior", 0, 75, 500, 95, 100, "", 0);
+                    new ConsoleActionListener(name, "Warrior", 0, 75, 500, 95, 100, 0,0,"", 0);
 
                 } else if (this._selectionMade.equals("2"))
                 {
-                    new ConsoleActionListener(name, "Healer", 0, 65, 450, 50, 150, "", 0);
+                    new ConsoleActionListener(name, "Healer", 0, 65, 450, 50, 150, 0,0,"", 0);
 
                 } else if (this._selectionMade.equals("3"))
                 {
-                    new ConsoleActionListener(name, "Healer", 0, 65, 450, 50, 150, "", 0);
+                    new ConsoleActionListener(name, "Healer", 0, 65, 450, 50, 150, 0,0,"", 0);
                 }
-                this._selectionMade = "0";
-                while (!this._selectionMade.equals(""))
-                {
-                    this.PrintHeader();
-                    System.out.println("Make a move.\n1. Up\t2. Down\t3. Left\t4. Right\t5. Run\t6. Fight");
-                    this._selectionMade = _bReader.readLine();
-                    ConsoleActionListener.get_gamePlayInstance().consoleMoveSelection(this._selectionMade);
-
-                }
+                this.playGame();
             } else if (this._selectionMade.equals("2"))
             {
                 ResultSet rs = ConsoleActionListener.contGame();
@@ -103,16 +92,25 @@ public class ConsoleLoop {
                 for (int i = 0; i < heroResultList.size(); i++) {
                     if (i%11 == 0)
                     {
+                        rowCount++;
                         System.out.print(heroResultList.get(i));
                         System.out.println(" " + heroResultList.get(i+1));
                     }
                 }
+
                 this._selectionMade = "0";
-                while(Integer.parseInt(_selectionMade) < 0 && Integer.parseInt(_selectionMade) > rowCount)
+                System.out.println(rowCount);
+                while(Integer.parseInt(_selectionMade) <= 0 || Integer.parseInt(_selectionMade) > rowCount)
                 {
                     System.out.println("Print Select A hero to continue");
                     _selectionMade = _bReader.readLine();
                 }
+                ResultSet heroDetails = ConsoleActionListener.singleUser(Integer.parseInt(_selectionMade));
+                new ConsoleActionListener(heroDetails.getString(2), heroDetails.getString(3),
+                        heroDetails.getInt(5), heroDetails.getInt(7), heroDetails.getInt(6), heroDetails.getInt(8),
+                        heroDetails.getInt(9), heroDetails.getInt(10), heroDetails.getInt(11), heroDetails.getString(4), Integer.parseInt(_selectionMade));
+
+                this.playGame();
                 
             } else {
                 System.out.println("Choose wisely");
@@ -129,6 +127,18 @@ public class ConsoleLoop {
                 "\n@ |\t\t\t\t\t\t|\t\t|\t\t\t\t\t\t\t\t@\n@ |\t\t\t\t|\t\t\t\t|\t\t\t\t\t\t\t\t@\n@ |----------------\t\t\t\t\t\t\t\t|\t\t\t\t@\n@\t\t\t\t  |\t" +
                 "\t\t\t\t\t\t|\t\t\t\t\t@\n@\t\t\t\t  |\t\t\t\t\t\t|\t\t|\t\t\t\t@\n@\t\t\t\t  |\t\t\t\t\t|\t\t\t|\t\t\t\t@\n@ ----------------|\t\t\t\t\t\t\t\t\t\t|\t\t@" +
                 "\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+    }
+
+    public void playGame() throws IOException {
+        this._selectionMade = "0";
+        while (!this._selectionMade.equals(""))
+        {
+            this.PrintHeader();
+            System.out.println("Make a move.\n1. Up\t2. Down\t3. Left\t4. Right\t5. Run\t6. Fight");
+            this._selectionMade = _bReader.readLine();
+            ConsoleActionListener.get_gamePlayInstance().consoleMoveSelection(this._selectionMade);
+
+        }
     }
 
 

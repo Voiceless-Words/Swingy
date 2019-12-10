@@ -45,8 +45,14 @@ public class PapadiEGolo implements ActionListener {
         _heroInformation = LetlakalaLaGoRaloka.getLetlakala().getHeroInfo();
         if(contNew > 0)
         {
+            if(envGame.equals("Console"))
+            {
+                System.out.println(_detailsOfHero.get_HeroStatements());
 
-            _heroInformation.displayInformation(_detailsOfHero.get_HeroStatements(), envGame);
+            }else{
+                _heroInformation.displayInformation(_detailsOfHero.get_HeroStatements(), envGame);
+            }
+
             _detailsOfHero.set_HeroID(contNew);
             //this.saveHero.updateHero(newHero);
         } else {
@@ -318,7 +324,12 @@ public class PapadiEGolo implements ActionListener {
                     {
                         this._detailsOfHero.set_HeroHP(this._detailsOfHero.get_HeroHP() - 5);
                     }
-                    this._heroInformation.displayInformation("The enemy stabbed you with a knife", envGame);
+                    if (envGame.equals("Console"))
+                    {
+                        System.out.println("The enemy stabbed you with a knife");
+                    } else {
+                        this._heroInformation.displayInformation("The enemy stabbed you with a knife", envGame);
+                    }
 
                 } else if (enemyW == 2) {
                     this._detailsOfHero.set_HeroDefense(this._detailsOfHero.get_HeroDefense() - 7);
@@ -329,7 +340,12 @@ public class PapadiEGolo implements ActionListener {
                     {
                         this._detailsOfHero.set_HeroHP(this._detailsOfHero.get_HeroHP() - 7);
                     }
-                    this._heroInformation.displayInformation("The enemy hit you with a knobkirrie", envGame);
+                    if (envGame.equals("Console"))
+                    {
+                        System.out.println("The enemy hit you with a knobkirrie");
+                    } else {
+                        this._heroInformation.displayInformation("The enemy hit you with a knobkirrie", envGame);
+                    }
                 } else if (enemyW == 3) {
                     this._detailsOfHero.set_HeroDefense(this._detailsOfHero.get_HeroDefense() - 8);
                     if (this._detailsOfHero.get_HeroDefense() < 10 && this._detailsOfHero.get_HeroDefense() > 0)
@@ -339,7 +355,12 @@ public class PapadiEGolo implements ActionListener {
                     {
                         this._detailsOfHero.set_HeroHP(this._detailsOfHero.get_HeroHP() - 8);
                     }
-                    this._heroInformation.displayInformation("The enemy shot you with a 9mm gun", envGame);
+                    if (envGame.equals("Console"))
+                    {
+                        System.out.println("The enemy shot you with a 9mm gun");
+                    } else {
+                        this._heroInformation.displayInformation("The enemy shot you with a 9mm gun", envGame);
+                    }
                 } else if (enemyW == 4) {
 
                     this._detailsOfHero.set_HeroDefense(this._detailsOfHero.get_HeroDefense() - 10);
@@ -350,7 +371,12 @@ public class PapadiEGolo implements ActionListener {
                     {
                         this._detailsOfHero.set_HeroHP(this._detailsOfHero.get_HeroHP() - 10);
                     }
-                    this._heroInformation.displayInformation("The enemy shot you with an Ak-47", envGame);
+                    if (envGame.equals("Console"))
+                    {
+                        System.out.println("The enemy shot you with an Ak-47");
+                    } else {
+                        this._heroInformation.displayInformation("The enemy shot you with an Ak-47", envGame);
+                    }
                 } else if (enemyW == 5) {
 
                     this._detailsOfHero.set_HeroDefense(this._detailsOfHero.get_HeroDefense() - 12);
@@ -361,20 +387,35 @@ public class PapadiEGolo implements ActionListener {
                     {
                         this._detailsOfHero.set_HeroHP(this._detailsOfHero.get_HeroHP() - 12);
                     }
-                    this._heroInformation.displayInformation("The enemy released a Missile", envGame);
+                    if (envGame.equals("Console"))
+                    {
+                        System.out.println("The enemy released a Missile");
+                    } else {
+                        this._heroInformation.displayInformation("The enemy released a Missile", envGame);
+                    }
                 }
 
                 this.DisplayStats(envGame);
             } else {
                 enemyHP -= 10;
                 this.DisplayStats(envGame);
-                _heroInformation.displayInformation("Hero strikes.", envGame);
+                if (envGame.equals("Console"))
+                {
+                    System.out.println("Hero strikes.");
+                } else {
+                    _heroInformation.displayInformation("Hero strikes.", envGame);
+                }
             }
         }
 
         if (this._detailsOfHero.get_HeroHP() > 0)
         {
-            this._heroInformation.displayInformation("You killed the enemy", envGame);
+            if (envGame.equals("Console"))
+            {
+                System.out.println("You killed the enemy");
+            } else {
+                this._heroInformation.displayInformation("You killed the enemy", envGame);
+            }
             this._detailsOfHero.set_HeroDefense(this._detailsOfHero.get_HeroDefense() + 50);
             this._detailsOfHero.set_HeroExp(this._detailsOfHero.get_HeroExp() + 300);
             enemyW = map.get("Enemy" + Integer.toString(this._enemyHere) + "Weapon");
@@ -385,19 +426,44 @@ public class PapadiEGolo implements ActionListener {
             {
                 if (enemyW == 1)
                 {
-                    this._heroInformation.displayInformation("The enemy dropped a knife", envGame);
+                    if (envGame.equals("Console"))
+                    {
+                        System.out.println("The enemy dropped a knife");
+                    } else {
+                        this._heroInformation.displayInformation("The enemy dropped a knife", envGame);
+                    }
                     this._detailsOfHero.set_HeroWeapos(enemyW);
                 } else if (enemyW == 2) {
-                    this._heroInformation.displayInformation("The enemy dropped a knobkirrie", envGame);
+                    if (envGame.equals("Console"))
+                    {
+                        System.out.println("The enemy dropped a knobkirrie");
+                    } else {
+                        this._heroInformation.displayInformation("The enemy dropped a knobkirrie", envGame);
+                    }
                     this._detailsOfHero.set_HeroWeapos(enemyW);
                 } else if (enemyW == 3) {
-                    this._heroInformation.displayInformation("The enemy dropped a 9mm gun", envGame);
+                    if (envGame.equals("Console"))
+                    {
+                        System.out.println("The enemy dropped a 9mm gun");
+                    } else {
+                        this._heroInformation.displayInformation("The enemy dropped a 9mm gun", envGame);
+                    }
                     this._detailsOfHero.set_HeroWeapos(enemyW);
                 } else if (enemyW == 4) {
-                    this._heroInformation.displayInformation("The enemy dropped a Ak-47", envGame);
+                    if (envGame.equals("Console"))
+                    {
+                        System.out.println("The enemy dropped a Ak-47");
+                    } else {
+                        this._heroInformation.displayInformation("The enemy dropped a Ak-47", envGame);
+                    }
                     this._detailsOfHero.set_HeroWeapos(enemyW);
                 } else if (enemyW == 5) {
-                    this._heroInformation.displayInformation("The enemy dropped a Missile", envGame);
+                    if (envGame.equals("Console"))
+                    {
+                        System.out.println("The enemy dropped a Missile");
+                    } else {
+                        this._heroInformation.displayInformation("The enemy dropped a Missile", envGame);
+                    }
                     this._detailsOfHero.set_HeroWeapos(enemyW);
                 }
 
@@ -405,11 +471,17 @@ public class PapadiEGolo implements ActionListener {
                 this._enemyArray.remove(this._enemyHere - 1);
             }
         }else {
-            MainFrame.getInstance().hidePanel(MainFrame.getInstance().getPanel());
-            GameOver _display = new GameOver(this._gamePlayTextArea.getTextArea());
+            if (envGame.equals("Console"))
+            {
+                System.out.println("Game Over Game Over Game Over Game Over");
+            } else {
+                MainFrame.getInstance().hidePanel(MainFrame.getInstance().getPanel());
+                this._heroInformation.displayInformation("Game Over Game Over", "Gui");
+                GameOver _display = new GameOver(_detailsOfHero.get_HeroStatements());
 
-            MainFrame.getInstance().addPanel(_display.getDisplay());
-            MainFrame.getInstance().getFrame().setTitle(_display.getTitle());
+                MainFrame.getInstance().addPanel(_display.getDisplay());
+                MainFrame.getInstance().getFrame().setTitle(_display.getTitle());
+            }
         }
     }
 
