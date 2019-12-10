@@ -30,7 +30,8 @@ public class LetlakalaLaGoRaloka extends JPanel implements Display {
     private static LetlakalaLaGoRaloka _letlakala;
 
     public LetlakalaLaGoRaloka() {
-
+        _statsDisplay = new StatsDisplay();
+        _gamePageTextArea = new GamePageTextArea();
     }
 
     @Override

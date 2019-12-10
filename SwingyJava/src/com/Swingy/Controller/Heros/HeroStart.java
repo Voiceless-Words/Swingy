@@ -6,17 +6,17 @@ public class HeroStart {
     {
     }
 
-    public static HeroDetails newHero(String heroName, String heroClass, int heroLevel, int heroAttack, int heroExp, int heroDefense, int heroHP, int row, int col)
+    public static HeroDetails newHero(String heroName, String heroClass, int heroLevel, int heroAttack, int heroExp, int heroDefense, int heroHP, int row, int col, String val)
     {
         if (heroClass.toLowerCase().equals("warrior"))
         {
-            return new WarriorHero(heroName, heroClass, heroLevel, heroAttack, heroExp, heroDefense, heroHP, row, col);
+            return new WarriorHero(heroName, heroClass, heroLevel, heroAttack, heroExp, heroDefense, heroHP, row, col, val);
         } else if (heroClass.toLowerCase().equals("legend"))
         {
-            return new LegendHero(heroName, heroClass, heroLevel, heroAttack, heroExp, heroDefense, heroHP, row, col);
+            return new LegendHero(heroName, heroClass, heroLevel, heroAttack, heroExp, heroDefense, heroHP, row, col, val);
         } else if (heroClass.toLowerCase().equals("healer"))
         {
-            return new HealerHero(heroName, heroClass, heroLevel, heroAttack, heroExp, heroDefense, heroHP, row, col);
+            return new HealerHero(heroName, heroClass, heroLevel, heroAttack, heroExp, heroDefense, heroHP, row, col, val);
         }
 
         return null;

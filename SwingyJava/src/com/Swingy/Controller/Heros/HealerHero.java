@@ -16,7 +16,7 @@ public class HealerHero implements HeroDetails {
     private int _heroID;
     private int [] _heroWeapons;
 
-    public HealerHero(String heroName, String heroClass, int heroLevel, int heroAttack, int heroExp, int heroDefense, int heroHP, int row, int col)
+    public HealerHero(String heroName, String heroClass, int heroLevel, int heroAttack, int heroExp, int heroDefense, int heroHP, int row, int col, String val)
     {
         this._heroName = heroName;
         this._heroClass = heroClass;
@@ -27,6 +27,7 @@ public class HealerHero implements HeroDetails {
         this._heroHP = heroHP;
         this._heroCol = col;
         this._heroRow = row;
+        this.set_HeroStatements(val);
         this._heroWeapons = new int[5];
 
         Random random = new Random();

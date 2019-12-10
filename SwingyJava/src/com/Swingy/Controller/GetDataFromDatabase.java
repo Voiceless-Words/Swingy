@@ -46,9 +46,10 @@ public class GetDataFromDatabase implements ActionListener {
 
                         MainFrame.getInstance().addPanel(_display.getDisplay());
                         MainFrame.getInstance().getFrame().setTitle(_display.getTitle());
+
                         _display.gameControlButtonsListener(new PapadiEGolo(HeroStart.newHero(heroDetails.getString(2), heroDetails.getString(3),
-                                    heroDetails.getInt(4), heroDetails.getInt(5), heroDetails.getInt(6), heroDetails.getInt(7),
-                                    heroDetails.getInt(8), heroDetails.getInt(9), heroDetails.getInt(10)), "Gui", selection));
+                                    heroDetails.getInt(5), heroDetails.getInt(7), heroDetails.getInt(6), heroDetails.getInt(8),
+                                    heroDetails.getInt(9), heroDetails.getInt(10), heroDetails.getInt(11), heroDetails.getString(4)), "Gui", selection));
                         _heroModel.closeConnection();
                     } else {
                         JOptionPane.showMessageDialog(null, "Are you blind my nigga!!");

@@ -171,6 +171,24 @@ public class HeroStats {
         return _queryResult;
     }
 
+    public ResultSet getAllHero()
+    {
+        try {
+            _connect = this.get_connect();
+            if (_connect != null) {
+                String queryStatement = " SELECT * FROM savedHeroes ";
+
+                _queryStatement = _connect.prepareStatement(queryStatement);
+                _queryResult = _queryStatement.executeQuery();
+                //_connect.close();
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return _queryResult;
+    }
+
     public Connection get_connect() throws SQLException
     {
         if (_connect == null) {

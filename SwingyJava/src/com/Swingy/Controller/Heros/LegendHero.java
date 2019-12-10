@@ -18,7 +18,7 @@ public class LegendHero implements HeroDetails {
     private int _heroID;
     private int[] _heroWeapons;
 
-    public LegendHero(String heroName, String heroClass, int heroLevel,int heroAttack, int heroExp, int heroDefense, int heroHP, int row, int col)
+    public LegendHero(String heroName, String heroClass, int heroLevel,int heroAttack, int heroExp, int heroDefense, int heroHP, int row, int col, String val)
     {
         this._heroName = heroName;
         this._heroClass = heroClass;
@@ -28,6 +28,7 @@ public class LegendHero implements HeroDetails {
         this._heroHP = heroHP;
         this._heroCol = col;
         this._heroRow = row;
+        this.set_HeroStatements(val);
         this._heroAttack = heroAttack;
         this._heroWeapons = new int[5];
 

@@ -42,8 +42,11 @@ public class PapadiEGolo implements ActionListener {
         this._gamePlayTextArea = new GamePageTextArea();
         this._gamePlayButtons = new GamePlayButtons();
         this.saveHero = new HeroStats();
+        _heroInformation = LetlakalaLaGoRaloka.getLetlakala().getHeroInfo();
         if(contNew > 0)
         {
+
+            _heroInformation.displayInformation(_detailsOfHero.get_HeroStatements(), envGame);
             _detailsOfHero.set_HeroID(contNew);
             //this.saveHero.updateHero(newHero);
         } else {
@@ -61,7 +64,6 @@ public class PapadiEGolo implements ActionListener {
         JButton clicked;
 
         clicked = (JButton)e.getSource();
-        _heroInformation = LetlakalaLaGoRaloka.getLetlakala().getHeroInfo();
 
         if(_gamePlayButtons.get_upImg().getToolTipText() == clicked.getToolTipText())
         {
@@ -107,18 +109,70 @@ public class PapadiEGolo implements ActionListener {
 
     }
 
+    public void consoleMoveSelection(String selection)
+    {
+        if(selection.equals("1"))
+        {
+            System.out.println("Moving up");
+            this.ChangeLocationOfHero("up", "Console");
+            return;
+        }else if (selection.equals("2"))
+        {
+            System.out.println("Moving down");
+            this.ChangeLocationOfHero("down", "Console");
+            return;
+        }else if (selection.equals("3"))
+        {
+            System.out.println("Moving left");
+            this.ChangeLocationOfHero("left", "Console");
+            return;
+        }else if (selection.equals("4"))
+        {
+            System.out.println("Moving right");
+            this.ChangeLocationOfHero("right", "Console");
+            return;
+        }else if (selection.equals("5"))
+        {
+            if (this._enemyHere == 0)
+            {
+                System.out.println("What are you running away from??");
+            } else {
+                System.out.println("Runaway? Can you make it?");
+                this.RunAway("Console");
+                this._enemyHere = 0;
+            }
+            return;
+        }else if (selection.equals("6"))
+        {
+            if (this._enemyHere == 0)
+            {
+                System.out.println("You are wasting power.");
+            } else {
+                System.out.println("It's about to go down");
+                this.FightEnemy("Console");
+                this._enemyHere = 0;
+            }
+            return;
+        }else
+        {
+            System.out.println("Make the right Selection");
+            return;
+        }
+
+    }
+
     public void DisplayStats(String envGame)
     {
         _detailsOfHero.set_HeroRow(_yCoordinate);
         _detailsOfHero.set_HeroCol(_xCoordinate);
-        _detailsOfHero.set_HeroStatements(LetlakalaLaGoRaloka.getAreaText());
         if (envGame == "Console")
         {
-            _heroInformation.displayInformation("Name: "+_detailsOfHero.get_HeroName()+ "\nType: "+_detailsOfHero.get_HeroClass()+"\nLevel: "+_detailsOfHero.get_HeroLevel()+
+            System.out.println("Name: "+_detailsOfHero.get_HeroName()+ "\nType: "+_detailsOfHero.get_HeroClass()+"\nLevel: "+_detailsOfHero.get_HeroLevel()+
                     "\nAttack: "+_detailsOfHero.get_HeroAttack()+"\nExperience: "+_detailsOfHero.get_HeroExp()+"\nDefense: "+_detailsOfHero.get_HeroDefense()+
-                    "\nHealth Points: "+_detailsOfHero.get_HeroHP() + "\n HeroID" + _detailsOfHero.get_HeroID(), "Console");
+                    "\nHealth Points: "+_detailsOfHero.get_HeroHP() + "\nHeroID: " + _detailsOfHero.get_HeroID());
 
         }else {
+            _detailsOfHero.set_HeroStatements(LetlakalaLaGoRaloka.getAreaText());
             StatsDisplay.get_statsField().setText("Name: "+_detailsOfHero.get_HeroName()+" Type: " +_detailsOfHero.get_HeroClass()+
                     " Lv: "+_detailsOfHero.get_HeroLevel()+" Atck: "+_detailsOfHero.get_HeroAttack()+" Exp: "+_detailsOfHero.get_HeroExp()+
                     " Dfns: "+_detailsOfHero.get_HeroDefense()+" HP: "+_detailsOfHero.get_HeroHP());
